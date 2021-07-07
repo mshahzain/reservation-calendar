@@ -9,7 +9,15 @@ function CalendarController(weekDays)
 {
   var calendar = this;
 
-  calendar.weekDays =  weekDays; 
+  calendar.weekDays =  weekDays;
+  calendar.weeks = 5;
+  calendar.paddedWeeksArr = [7,14,21,27];
+  calendar.paddingDays = '';
+  calendar.paddingDaysArr = [];
+  calendar.NonPaddingDaysArr = [];
+  calendar.daysInMonth = '';//initialized
+  //assigned value in loadCalendarHelper function;
+
   var loadCalendarHelper = function()
   {
 
@@ -32,21 +40,23 @@ function CalendarController(weekDays)
       day: 'numeric',
     });
 
-    const paddingDays = weekDays.indexOf(dateString.split(', ')[0]);
+    calendar.paddingDays = Number(weekDays.indexOf(dateString.split(', ')[0]));
+    calendar.daysInMonth = Number(daysInMonth);
 
     //dateString.split() gets the string separated by commas
     // to an array and gets the first element
     // today's wednesday so the paddingDays are 3, which are Sunday, Monday, Tuesday.
-    console.log(paddingDays);
 
-    for(let i = 0; i < paddingDays + daysInMonth; i++)
+    for(let i = 0; i< calendar.paddingDays; i++)
     {
-
+      calendar.paddingDaysArr.push(i);
+    }
+    for(let i = 1; i <= 7 - calendar.paddingDays ; i++)
+    {
+      calendar.NonPaddingDaysArr.push(i);
     }
 
-
   }
-
   loadCalendarHelper();
 
 }

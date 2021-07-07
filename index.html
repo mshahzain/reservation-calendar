@@ -10,8 +10,8 @@
     <script src="app/app.js" charset="utf-8"></script>
     <script src="app/controllers/CalendarController.js" charset="utf-8"></script>
 
-    <link rel="stylesheet" href="lib/bootstrap.min.css">
-
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/css/style.css">
     <title>
       Reservation Calendar
     </title>
@@ -22,14 +22,34 @@
 
 
     <div ng-controller="CalendarController as calendar" class="container">
-      <table class = "table">
-        <thead>
+      <table class = "table table-bordered">
+        <thead text-center>
           <tr>
             <th ng-repeat= "day in calendar.weekDays">
             {{day}}
             </th>
           </tr>
         </thead>
+        <tbody>
+
+          <tr>
+
+          <td ng-repeat= "day in calendar.paddingDaysArr">
+            {{}}
+          </td>
+
+          <td ng-repeat= "day in calendar.NonPaddingDaysArr">
+            {{ $index +1 }}
+          </td>
+
+          </tr>
+
+          <tr ng-repeat="week in calendar.paddedWeeksArr">
+              <td ng-if="($index + 1 + week - calendar.paddingDays) <= calendar.daysInMonth" ng-repeat="days in calendar.weekDays">
+              {{ $index + 1 + week - calendar.paddingDays }}</td>
+          </tr>
+
+        </tbody>
 
 
       </table>
