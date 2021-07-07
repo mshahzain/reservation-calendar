@@ -21,11 +21,19 @@
   <body>
 
 
-    <div ng-controller="CalendarController as calendar" class="container">
+    <div ng-controller="CalendarController as calendar" class="container ">
+      <div class="text-center" id="buttonAndMonth">
+        <button ng-click="calendar.goToPreviousMonth()" class= "btn-left text-center btn btn-dark my-button-css" type="button" name="button"> < </button>
+        <h3 class="display-1 text-center"> {{calendar.month}}
+        </h3>
+        <button ng-click="calendar.goToNextMonth()"class= "btn-right text-center btn btn-dark my-button-css" type="button" name="button"> > </button>
+
+      </div>
+
       <table class = "table table-bordered">
-        <thead text-center>
+        <thead >
           <tr>
-            <th ng-repeat= "day in calendar.weekDays">
+            <th ng-repeat= "day in calendar.weekDays track by $index ">
             {{day}}
             </th>
           </tr>
@@ -34,7 +42,8 @@
 
           <tr>
 
-          <td ng-repeat= "day in calendar.paddingDaysArr">
+          <td ng-repeat= "day in calendar.paddingDaysArr track by $index">
+
             {{}}
           </td>
 

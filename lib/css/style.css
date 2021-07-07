@@ -1,10 +1,37 @@
+.btn-left
+{
+  margin-right: auto;
+}
+.btn-right
+{
+  margin-left: auto;
+}
+#buttonAndMonth
+{
+  display: flex;
+  align-items:  center !important;
+  justify-content: center !important;
+}
+.my-button-css
+{
+
+
+}
+h3
+{
+
+  text-align: center !important;
+
+}
+
 table
 {
-  width : 100%;
+
 }
 
 th, td
 {
-  padding: 1rem;
-   text-align : center;
+
+  padding: 1rem !important;
+   text-align : center !important;
 }
