@@ -1,24 +1,46 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html ng-app="ReservationCalendar" lang="en">
+
   <head>
 
     <meta charset="utf-8">
+
+    <script src="lib/angular.min.js" charset="utf-8"></script>
+    <script src="app/app.js" charset="utf-8"></script>
+    <script src="app/controllers/CalendarController.js" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="lib/bootstrap.min.css">
+
     <title>
       Reservation Calendar
     </title>
+
   </head>
 
   <body>
 
-    <div class="">
 
+    <div ng-controller="CalendarController as calendar" class="container">
+      <table class = "table">
+        <thead>
+          <tr>
+            <th ng-repeat= "day in calendar.weekDays">
+            {{day}}
+            </th>
+          </tr>
+        </thead>
+
+
+      </table>
     </div>
 
 
     <div class="">
 
     </div>
+
+
 
   </body>
 
