@@ -10,7 +10,6 @@
     <script src="app/app.js" charset="utf-8"></script>
     <script src="app/controllers/CalendarController.js" charset="utf-8"></script>
     <script src="app/controllers/ReservationRoomController.js" charset="utf-8">
-
     </script>
 
     <link rel="stylesheet" href="lib/css/bootstrap.min.css">
@@ -27,7 +26,7 @@
     <div ng-controller="CalendarController as calendar" >
       <div class="text-center buttonAndMonth">
         <button ng-click="calendar.goToPreviousMonth()" class= "btn-left text-center btn btn-dark my-button-css" type="button" name="button"> < </button>
-        <h1 class="display-1 text-center"> {{calendar.month + " " + calendar.currentYear}}
+        <h1 class="display-3 text-center"> {{calendar.month + " " + calendar.currentYear}}
         </h1>
         <button ng-click="calendar.goToNextMonth()"class= "btn-right text-center btn btn-dark my-button-css" type="button" name="button"> > </button>
 
@@ -48,6 +47,7 @@
           <td ng-repeat= "day in calendar.paddingDaysArr track by $index">
 
             {{}}
+
           </td>
 
           <td ng-click="calendar.getDateByClick($event)" ng-repeat= "day in calendar.NonPaddingDaysArr">
@@ -56,8 +56,8 @@
 
           </tr>
 
-          <tr ng-repeat="week in calendar.paddedWeeksArr">
-              <td ng-if="($index + 1 + week - calendar.paddingDays) <= calendar.daysInMonth" ng-repeat="days in calendar.weekDays">
+          <tr  ng-repeat="week in calendar.paddedWeeksArr">
+              <td ng-click="calendar.getDateByClick($event)" ng-if="($index + 1 + week - calendar.paddingDays) <= calendar.daysInMonth" ng-repeat="days in calendar.weekDays">
               {{ $index + 1 + week - calendar.paddingDays }}</td>
           </tr>
 
@@ -68,27 +68,56 @@
     </div>
 
 
-    <div class="container align-middle border border-primary" ng-controller = "ReservationRoomController as reserveRoom">
+    <div class="d-inline" ng-controller = "ReservationRoomController as reserveRoom">
 
-      <div>
 
+
+      <div ng-if="reserveRoom.check===false" class= "border border-primary container text-center">
         <div>
           Tenant Name:
-          <input  class="" type="text" placeholder="Enter tenant name">
-        </div>
-        <ul>
+          <input ng-model="reserveRoom.nameSelectedInput"  class="" type="text" placeholder="Enter tenant name">
 
-          <li ng-repeat="date in reserveRoom.date">
-            Stay date :  {{date.short}}
+        </div>
+        <ul class="list-inline">
+          Stay date :
+          <li class="lead list-inline-item"  ng-repeat="date in reserveRoom.date">
+             <b>{{date.short}}</b>,
           </li>
+        </ul>
+        <button  class ="btn btn-success" type="button" name="button">Confirm Stay</button>
+      </div>
+
+      <div ng-if="reserveRoom.check===true" class= "border border-primary container text-center">
+        <div>
+          Tenant Name:
+          <ul class="list-inline">
+            <li ng-repeat="name in reserveRoom.nameSelectedArr" class="lead list-inline-item">
+            {{ name }},</li>
+          </ul>
+        </div>
+        <ul class="list-inline">
+          Stay date :
+          <li class="lead list-inline-item"  ng-repeat="date in reserveRoom.date">
+             <b>{{date.short}}</b>,
+          </li>
+        </ul>
+        <button ng-click="reserveRoom.setReservationDetails()" class ="btn btn-danger" type="button" name="button">Delete Stay</button>
+      </div>
+
+    <div class="container border border-primary">
+      <button ng-click="reserveRoom.getReservationDetails()" class="btn btn-secondary" type="button" name="button"> Get Tenants List </button>
+        <ul class = "list-inline">
+          Tenant List: {{reserveRoom.tenantList.reserved.length}}
+
+          <li class= "list-inline-item" ng-repeat="obj in reserveRoom.tenantList.reserved">
+              {{ obj.tennantName }} <b>,</b>
+          </li>
+
         </ul>
 
       </div>
 
-
     </div>
-
-
 
   </body>
 

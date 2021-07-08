@@ -12,8 +12,8 @@ function CalendarController(weekDays,ReserveRoomService)
   calendar.currentMonth= 0;
   calendar.currentYear= "2020";
   calendar.currentDay = 13;
-  var initialDate = new Date(calendar.currentYear, calendar.currentMonth, calendar.currentDay);
-  ReserveRoomService.setDate(initialDate); //To setup a initially selected date
+  // var initialDate = new Date(calendar.currentYear, calendar.currentMonth, calendar.currentDay);
+  // ReserveRoomService.setDate(initialDate); //To setup a initially selected date
   calendar.weekDays =  weekDays;
   calendar.weeks = 5;
   calendar.paddedWeeksArr = [7 , 14, 21 , 28, 35 ];
@@ -101,7 +101,10 @@ function CalendarController(weekDays,ReserveRoomService)
 
   calendar.getDateByClick = function(element)
   {
+
+
     calendar.currentDay= element.target.innerHTML;
+
     //console.log(date);
     var passedDate = new Date(calendar.currentYear, calendar.currentMonth, calendar.currentDay);
     ReserveRoomService.setDate(passedDate);
