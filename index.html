@@ -9,6 +9,9 @@
     <script src="lib/angular.min.js" charset="utf-8"></script>
     <script src="app/app.js" charset="utf-8"></script>
     <script src="app/controllers/CalendarController.js" charset="utf-8"></script>
+    <script src="app/controllers/ReservationRoomController.js" charset="utf-8">
+
+    </script>
 
     <link rel="stylesheet" href="lib/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/css/style.css">
@@ -18,20 +21,20 @@
 
   </head>
 
-  <body>
+  <body  class="d-inline-flex">
 
 
-    <div ng-controller="CalendarController as calendar" class="container ">
-      <div class="text-center" id="buttonAndMonth">
+    <div ng-controller="CalendarController as calendar" >
+      <div class="text-center buttonAndMonth">
         <button ng-click="calendar.goToPreviousMonth()" class= "btn-left text-center btn btn-dark my-button-css" type="button" name="button"> < </button>
-        <h3 class="display-1 text-center"> {{calendar.month}}
-        </h3>
+        <h1 class="display-1 text-center"> {{calendar.month + " " + calendar.currentYear}}
+        </h1>
         <button ng-click="calendar.goToNextMonth()"class= "btn-right text-center btn btn-dark my-button-css" type="button" name="button"> > </button>
 
       </div>
 
-      <table class = "table table-bordered">
-        <thead >
+      <table class = " table table-bordered">
+        <thead>
           <tr>
             <th ng-repeat= "day in calendar.weekDays track by $index ">
             {{day}}
@@ -47,7 +50,7 @@
             {{}}
           </td>
 
-          <td ng-repeat= "day in calendar.NonPaddingDaysArr">
+          <td ng-click="calendar.getDateByClick($event)" ng-repeat= "day in calendar.NonPaddingDaysArr">
             {{ $index +1 }}
           </td>
 
@@ -65,7 +68,23 @@
     </div>
 
 
-    <div class="">
+    <div class="container align-middle border border-primary" ng-controller = "ReservationRoomController as reserveRoom">
+
+      <div>
+
+        <div>
+          Tenant Name:
+          <input  class="" type="text" placeholder="Enter tenant name">
+        </div>
+        <ul>
+
+          <li ng-repeat="date in reserveRoom.date">
+            Stay date :  {{date.short}}
+          </li>
+        </ul>
+
+      </div>
+
 
     </div>
 

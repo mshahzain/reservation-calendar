@@ -6,7 +6,7 @@
 {
   margin-left: auto;
 }
-#buttonAndMonth
+.buttonAndMonth
 {
   display: flex;
   align-items:  center !important;
@@ -17,7 +17,7 @@
 
 
 }
-h3
+h1
 {
 
   text-align: center !important;
@@ -26,12 +26,12 @@ h3
 
 table
 {
-
+  width: auto;
 }
 
 th, td
 {
 
-  padding: 1rem !important;
+
    text-align : center !important;
 }

@@ -3,14 +3,17 @@ angular.module("ReservationCalendar")
 
 .controller("CalendarController", CalendarController);
 
-CalendarController.$inject = (["weekDays"]); //injecting that helps deal wtih minified code.
+CalendarController.$inject = (["weekDays", "ReserveRoomService"]); //injecting that helps deal wtih minified code.
 //good convention, don't exactly know how it works but have a slight idea.
-function CalendarController(weekDays)
+function CalendarController(weekDays,ReserveRoomService)
 {
   var calendar = this;
 
-  calendar.currentMonth='';
-  calendar.currentYear='';
+  calendar.currentMonth= 0;
+  calendar.currentYear= "2020";
+  calendar.currentDay = 13;
+  var initialDate = new Date(calendar.currentYear, calendar.currentMonth, calendar.currentDay);
+  ReserveRoomService.setDate(initialDate); //To setup a initially selected date
   calendar.weekDays =  weekDays;
   calendar.weeks = 5;
   calendar.paddedWeeksArr = [7 , 14, 21 , 28, 35 ];
@@ -67,13 +70,13 @@ function CalendarController(weekDays)
     const dateString =  firstDayOfMonth.toLocaleDateString('en-us',{
       weekday: 'long',
       year: 'numeric',
-      month: 'short',
+      month: 'long',
       day: 'numeric',
     });
 
     let dateStringArr = dateString.split(', ');
-    console.log(dateStringArr);
-    calendar.month = dateStringArr[1];
+
+    calendar.month = dateStringArr[1].split(" ")[0];
     calendar.paddingDays = Number(weekDays.indexOf(dateStringArr[0]));
 
     calendar.daysInMonth = Number(daysInMonth);
@@ -84,17 +87,27 @@ function CalendarController(weekDays)
 
     for(let i = 0; i< calendar.paddingDays; i++)
     {
-      calendar.paddingDaysArr.push(i);
+      calendar.paddingDaysArr.push(i);//used in ng-repeat loop to create empty padded days in first column
     }
     for(let i = 1; i <= 7 - calendar.paddingDays ; i++)
     {
-      calendar.NonPaddingDaysArr.push(i);
+      calendar.NonPaddingDaysArr.push(i); //used in ng-repeat loop to create days in first column
     }
 
     calendar.currentMonth = monthArg;
     calendar.currentYear = yearArg;
 
   }
-  loadCalendarHelper(6,"2020");
+
+  calendar.getDateByClick = function(element)
+  {
+    calendar.currentDay= element.target.innerHTML;
+    //console.log(date);
+    var passedDate = new Date(calendar.currentYear, calendar.currentMonth, calendar.currentDay);
+    ReserveRoomService.setDate(passedDate);
+    console.log(ReserveRoomService.getDate());
+
+  }
+  loadCalendarHelper(0,"2020");
 
 }
