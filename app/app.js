@@ -1,13 +1,33 @@
 // Creating the main app module
 angular.module("ReservationCalendar",[])
 .constant("weekDays", ["Sunday","Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday"])
-.service("ReserveRoomService", ["$http", function($http)
+.constant("directiveDirectory", "./app/directiveHtmlFiles/")
+.service("ReserveRoomService", ReserveRoomService)
+.directive("calendarHead", calendarHead)
+.directive("calendarBody", calendarBody)
+.directive('confirmStayView', confirmStayView)
+.directive('cancelStayView', cancelStayView)
+.directive('getTenantsView', getTenantsView)
+;
+// Good Convention - using camelCasing for directive names
+// as it gets normalised in html format i.e for example:
+// confirmStayView  = confirm-stay-view
+
+ReserveRoomService.$inject = ["$http"]; //Injection to help with minified code.
+calendarHead.$inject = ["directiveDirectory"];
+calendarBody.$inject = ["directiveDirectory"];
+confirmStayView.$inject = ["directiveDirectory"];
+cancelStayView.$inject = ["directiveDirectory"];
+getTenantsView.$inject = ["directiveDirectory"];
+
+// scalability if (making new directive){inject directiveDirectory}
+function ReserveRoomService($http)
 {
   var service = this;
   var dateList = [];
   var tenantList = [];
 
-  //helper functionnnnnnnnnnnnnn to check and delete if object{} in an array[]
+  //helper functionn to check and delete if object{} in an array[]
   function containsDelObject(obj, list)
   {
       var i;
@@ -20,22 +40,25 @@ angular.module("ReservationCalendar",[])
           }
       }
       return false;
-  }
+  };
+
   service.setReservationDetails = function(obj, reserve)
   {
     $http({
       method:"POST",
       url: "http://localhost:3000/reserve/",
       data: { "tennantName" : obj.name, "time" : obj.time, "reserved" : reserve },
-    }).then(function(success){
-
+    }).then(
+    function(success)
+    {
       console.log(success.data);
-
-    },function(error)
+    },
+    function(error)
     {
       console.log(error);
     });
-  }
+  };
+
   service.getReservationDetails = function()
   {
     var startTimeStamp =  1262289661; //UnixTimeStamp -Start 0f 2010.
@@ -46,7 +69,6 @@ angular.module("ReservationCalendar",[])
       url: "http://localhost:3000/reserve/"+startTimeStamp+"/"+endTimeStamp
     }).then(function(response)
     {
-      console.log(response.data);
       tenantList = response.data;
     }).catch(function(error){
       console.log(error);
@@ -57,9 +79,9 @@ angular.module("ReservationCalendar",[])
   service.setDate = function(myDate)
   {
 
-
     var dateObj = {};
-    var displayDateString = myDate.toLocaleDateString('en-us',{
+    var displayDateString = myDate.toLocaleDateString('en-us',
+    {
       weekday: 'long',
       year: 'numeric',
       month: 'short',
@@ -68,25 +90,66 @@ angular.module("ReservationCalendar",[])
 
     dateObj["date"] = myDate;
     dateObj["short"] = displayDateString.split(", ")[1];
-    console.log(dateObj);
 
     if(containsDelObject(dateObj, dateList))
     {
-///if contains, deletes object and new object not pushed
+      ///if contains, deletes object and new object not pushed
     }
     else
     {
       dateList.push(dateObj);
     }
 
-    // dateList.push(dateObj);
-    // else{
-    //   dateObj.push({date: date});
-    // }
-      //Date object basically
-  }
+  };
+
   service.getDate = function()
   {
     return dateList;
-  }
-}]);
+  };
+
+};
+
+function calendarHead(directiveDirectory)
+{
+  var ddo =
+  {  //direct definition object
+    templateUrl : directiveDirectory + 'calendarHead.html'
+  };
+  return ddo;
+};
+
+function calendarBody(directiveDirectory)
+{
+  var ddo =
+  {  //direct definition object
+    templateUrl : directiveDirectory + 'calendarBody.html'
+  };
+  return ddo;
+};
+
+function confirmStayView(directiveDirectory)
+{
+  var ddo =
+  {  //direct definition object
+    templateUrl : directiveDirectory + 'confirmStayView.html'
+  };
+  return ddo;
+};
+
+function cancelStayView(directiveDirectory)
+{
+  var ddo =
+  {  //direct definition object
+    templateUrl : directiveDirectory + 'cancelStayView.html'
+  };
+  return ddo;
+};
+
+function getTenantsView(directiveDirectory)
+{
+  var ddo =
+  {  //direct definition object
+    templateUrl : directiveDirectory + 'getTenantsView.html'
+  };
+  return ddo;
+};

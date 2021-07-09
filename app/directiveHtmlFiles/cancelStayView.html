@@ -1,0 +1,28 @@
+<div ng-if="reserveRoom.check===true" class= "border border-danger container text-center">
+<!-- added Spaces for readability -->
+  <div>
+    Tenant Name:
+    <ul class="list-inline">
+      <li ng-repeat="name in reserveRoom.nameSelectedArr" class="lead list-inline-item">
+          {{ name }},
+      </li>
+    </ul>
+  </div>
+
+  <ul class="list-inline">
+    Stay date :
+    <li class="lead list-inline-item"  ng-repeat="date in reserveRoom.date">
+       <b>{{date.short}}</b>,
+       <!-- Jan 13 etc shortdate -->
+    </li>
+  </ul>
+
+  <button
+      ng-click="reserveRoom.setReservationDetails()"
+      class ="btn btn-danger"
+      type="button"
+      name="button">
+      Delete Stay
+  </button>
+
+</div>

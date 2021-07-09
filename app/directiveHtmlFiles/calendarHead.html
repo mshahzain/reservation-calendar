@@ -1,0 +1,20 @@
+<div class="text-center buttonAndMonth">
+
+  <button
+        ng-click="calendar.goToPreviousMonth()"
+        class= "btn-left text-center btn btn-dark"
+        type="button">
+        <!-- displays < -->
+         <
+  </button>
+
+  <h1 class="display-3 text-center"> {{calendar.month + " " + calendar.currentYear}}</h1>
+
+  <button
+        ng-click="calendar.goToNextMonth()"
+        class= "btn-right text-center btn btn-dark my-button-css"
+        type="button">
+        ><!-- displays >  -->
+  </button>
+
+</div>

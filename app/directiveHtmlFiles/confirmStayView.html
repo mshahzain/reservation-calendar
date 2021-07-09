@@ -1,0 +1,25 @@
+<div ng-if = "reserveRoom.check===false" class= "border border-primary container text-center">
+<!-- added Spaces for readability -->
+  <div>
+    Tenant Name:
+    <input class="form-group" ng-model="reserveRoom.nameSelectedInput"  class="" type="text" placeholder="Enter tenant name">
+  </div>
+
+  <ul class="list-inline">
+    Stay date :
+    <li class="lead list-inline-item"  ng-repeat="date in reserveRoom.date">
+       <b>{{date.short}}</b>,
+       <!-- Jan 13 etc shortdate -->
+    </li>
+  </ul>
+
+  <button
+        ng-click= "reserveRoom.setReservationDetails()"
+        class ="btn btn-success"
+        ng-disabled="!reserveRoom.nameSelectedInput.trim().length || !reserveRoom.date.length"
+        type="button"
+        name="button">
+      Confirm Stay
+  </button>
+
+</div>

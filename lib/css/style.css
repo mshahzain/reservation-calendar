@@ -2,26 +2,22 @@
 {
   margin-right: auto;
 }
+
 .btn-right
 {
   margin-left: auto;
 }
+
 .buttonAndMonth
 {
   display: flex;
   align-items:  center !important;
   justify-content: center !important;
 }
-.my-button-css
-{
 
-
-}
 h1
 {
-
   text-align: center !important;
-
 }
 
 table
@@ -31,7 +27,5 @@ table
 
 th, td
 {
-
-
    text-align : center !important;
 }

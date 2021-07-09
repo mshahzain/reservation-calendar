@@ -1,126 +1,56 @@
 <!DOCTYPE html>
-
+<!-- Coding conventions tried to imitate from https://google.github.io/styleguide/htmlcssguide.html -->
 <html ng-app="ReservationCalendar" lang="en">
 
   <head>
 
     <meta charset="utf-8">
 
+    <!-- scripts/libraries to be used -->
     <script src="lib/angular.min.js" charset="utf-8"></script>
     <script src="app/app.js" charset="utf-8"></script>
     <script src="app/controllers/CalendarController.js" charset="utf-8"></script>
     <script src="app/controllers/ReservationRoomController.js" charset="utf-8">
     </script>
 
+    <!-- CSS/ Bootsrap StyleSheets -->
     <link rel="stylesheet" href="lib/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/css/style.css">
+
     <title>
       Reservation Calendar
     </title>
 
   </head>
 
-  <body  class="d-inline-flex">
+  <body class="d-inline-flex">
 
+    <div class="border border-dark" ng-controller="CalendarController as calendar" >
 
-    <div ng-controller="CalendarController as calendar" >
-      <div class="text-center buttonAndMonth">
-        <button ng-click="calendar.goToPreviousMonth()" class= "btn-left text-center btn btn-dark my-button-css" type="button" name="button"> < </button>
-        <h1 class="display-3 text-center"> {{calendar.month + " " + calendar.currentYear}}
-        </h1>
-        <button ng-click="calendar.goToNextMonth()"class= "btn-right text-center btn btn-dark my-button-css" type="button" name="button"> > </button>
+      <!-- Directive to create calendar - includes heading and two buttons -->
+      <calendar-head> </calendar-head>
 
-      </div>
+      <!--  Directive to create calendar body -->
+      <calendar-body> </calendar-body>
 
-      <table class = " table table-bordered">
-        <thead>
-          <tr>
-            <th ng-repeat= "day in calendar.weekDays track by $index ">
-            {{day}}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <tr>
-
-          <td ng-repeat= "day in calendar.paddingDaysArr track by $index">
-
-            {{}}
-
-          </td>
-
-          <td ng-click="calendar.getDateByClick($event)" ng-repeat= "day in calendar.NonPaddingDaysArr">
-            {{ $index +1 }}
-          </td>
-
-          </tr>
-
-          <tr  ng-repeat="week in calendar.paddedWeeksArr">
-              <td ng-click="calendar.getDateByClick($event)" ng-if="($index + 1 + week - calendar.paddingDays) <= calendar.daysInMonth" ng-repeat="days in calendar.weekDays">
-              {{ $index + 1 + week - calendar.paddingDays }}</td>
-          </tr>
-
-        </tbody>
-
-
-      </table>
     </div>
-
 
     <div class="d-inline" ng-controller = "ReservationRoomController as reserveRoom">
 
+      <!-- Directive for ConfirmStayview - disabled using ng-if if a
+      reserved person is not found on one of the selected dates -->
 
-      <!-- Button /Confirm Stay/ - disabled using ng-if if a
-      reserved person is found on one of the selected dates -->
+      <confirm-stay-view> </confirm-stay-view>
 
-      <div ng-if = "reserveRoom.check===false" class= "border border-primary container text-center">
-        <div>
-          Tenant Name:
-          <input ng-model="reserveRoom.nameSelectedInput"  class="" type="text" placeholder="Enter tenant name">
-        </div>
-        <ul class="list-inline">
-          Stay date :
-          <li class="lead list-inline-item"  ng-repeat="date in reserveRoom.date">
-             <b>{{date.short}}</b>,
-          </li>
-        </ul>
-        <button  ng-click= "reserveRoom.setReservationDetails()" class ="btn btn-success" ng-disabled="!reserveRoom.nameSelectedInput.trim().length || !reserveRoom.date.length" type="button" name="button">Confirm Stay</button>
-      </div>
+      <!-- Directive for Cancel Stay View- ENABLED using ng-if if a
+      reserved person is n  found on one of the selected dates -->
 
-      <!-- Button /Cancel Stay/ - ENABLED using ng-if if a
+      <cancel-stay-view> </cancel-stay-view>
+
+      <!-- Directive for GeButton /Cancel Stay/ - ENABLED using ng-if if a
       reserved person is  found on one of the selected dates -->
-      <div ng-if="reserveRoom.check===true" class= "border border-primary container text-center">
-        <div>
-          Tenant Name:
-          <ul class="list-inline">
-            <li ng-repeat="name in reserveRoom.nameSelectedArr" class="lead list-inline-item">
-            {{ name }},</li>
-          </ul>
-        </div>
-        <ul class="list-inline">
-          Stay date :
-          <li class="lead list-inline-item"  ng-repeat="date in reserveRoom.date">
-             <b>{{date.short}}</b>,
-          </li>
-        </ul>
-        <button ng-click="reserveRoom.setReservationDetails()" class ="btn btn-danger" type="button" name="button">Delete Stay</button>
-      </div>
 
-    <div class="container border border-primary">
-      <button ng-click="reserveRoom.getReservationDetails()" class="btn btn-secondary" type="button" name="button"> Get Tenants List </button>
-      <input ng-model="reserveRoom.filterName" type="text" placeholder="Filter by Name">
-        <ul class = "list-inline">
-          Tenant List: {{reserveRoom.tenantList.reserved.length}}
-
-          <li class= "list-inline-item" ng-repeat="obj in reserveRoom.tenantList.reserved | filter: reserveRoom.filterName">
-              {{ obj.tennantName + ": " }} {{ obj.time * 1000 | date: 'MMM-dd-yyyy'  }}<b>,</b>
-
-          </li>
-
-        </ul>
-
-      </div>
+      <get-tenants-view> </get-tenants-view>
 
     </div>
 

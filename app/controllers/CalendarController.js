@@ -12,16 +12,14 @@ function CalendarController(weekDays,ReserveRoomService)
   calendar.currentMonth= 0;
   calendar.currentYear= "2020";
   calendar.currentDay = 13;
-  // var initialDate = new Date(calendar.currentYear, calendar.currentMonth, calendar.currentDay);
-  // ReserveRoomService.setDate(initialDate); //To setup a initially selected date
-  calendar.weekDays =  weekDays;
+  calendar.weekDays =  weekDays; //constat weekdays
   calendar.weeks = 5;
   calendar.paddedWeeksArr = [7 , 14, 21 , 28, 35 ];
   calendar.paddingDays = '';
   calendar.paddingDaysArr = [];
   calendar.NonPaddingDaysArr = [];
   calendar.daysInMonth = '';//initialized
-  //assigned value in loadCalendarHelper function;
+  //assigned values in loadCalendarHelper function;
 
   calendar.goToPreviousMonth = function()
   {
@@ -34,8 +32,8 @@ function CalendarController(weekDays,ReserveRoomService)
     {
       loadCalendarHelper( calendar.currentMonth - 1,calendar.currentYear);
     }
-
   };
+
   calendar.goToNextMonth =  function()
   {
     if(calendar.currentMonth == 11)
@@ -47,7 +45,6 @@ function CalendarController(weekDays,ReserveRoomService)
     {
       loadCalendarHelper( calendar.currentMonth + 1,calendar.currentYear);
     }
-
   };
 
   var loadCalendarHelper = function(monthArg, yearArg) //month: 0-11, year: "Year"
@@ -64,8 +61,6 @@ function CalendarController(weekDays,ReserveRoomService)
     const daysInMonth = new Date(yearArg, monthArg + 1, 0).getDate();
     // 0th day as the third parameter gives the last day of the previous month.
     // That is the what we need to calculate total days in the current month.
-    console.log(daysInMonth);
-    console.log(firstDayOfMonth);
 
     const dateString =  firstDayOfMonth.toLocaleDateString('en-us',{
       weekday: 'long',
@@ -75,12 +70,9 @@ function CalendarController(weekDays,ReserveRoomService)
     });
 
     let dateStringArr = dateString.split(', ');
-
     calendar.month = dateStringArr[1].split(" ")[0];
     calendar.paddingDays = Number(weekDays.indexOf(dateStringArr[0]));
-
     calendar.daysInMonth = Number(daysInMonth);
-
     //dateString.split() gets the string separated by commas
     // to an array and gets the first element
     // today's wednesday so the paddingDays are 3, which are Sunday, Monday, Tuesday.
@@ -89,6 +81,7 @@ function CalendarController(weekDays,ReserveRoomService)
     {
       calendar.paddingDaysArr.push(i);//used in ng-repeat loop to create empty padded days in first column
     }
+
     for(let i = 1; i <= 7 - calendar.paddingDays ; i++)
     {
       calendar.NonPaddingDaysArr.push(i); //used in ng-repeat loop to create days in first column
@@ -97,20 +90,15 @@ function CalendarController(weekDays,ReserveRoomService)
     calendar.currentMonth = monthArg;
     calendar.currentYear = yearArg;
 
-  }
+  };
 
   calendar.getDateByClick = function(element)
   {
-
-
     calendar.currentDay= element.target.innerHTML;
-
-    //console.log(date);
     var passedDate = new Date(calendar.currentYear, calendar.currentMonth, calendar.currentDay);
     ReserveRoomService.setDate(passedDate);
-    console.log(ReserveRoomService.getDate());
+    ReserveRoomService.getDate();
+  };
 
-  }
-  loadCalendarHelper(0,"2020");
-
+  loadCalendarHelper(0,"2020"); //initializing calendar on 1st month of 2020
 }

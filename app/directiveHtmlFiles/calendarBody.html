@@ -1,0 +1,40 @@
+<table class = "table table-bordered">
+
+  <thead>
+    <tr>
+      <!-- generates weekdays like Sunday Monday etc in top row-->
+      <th ng-repeat= "day in calendar.weekDays track by $index ">
+      {{day}}
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <!-- generates first paddedboxs -->
+        <td
+            ng-repeat= "day in calendar.paddingDaysArr track by $index">
+          {{}}
+        </td>
+
+        <!-- generates remaining days in first row -->
+        <td
+            ng-click="calendar.getDateByClick($event)"
+            ng-repeat= "day in calendar.NonPaddingDaysArr">
+            {{ $index +1 }}
+        </td>
+    </tr>
+
+    <!-- generates remaining days in rest of the calendar-->
+    <!-- ng-if determines no more days are shown than total days of the month -->
+
+    <tr ng-repeat="week in calendar.paddedWeeksArr">
+        <td ng-click="calendar.getDateByClick($event)"
+            ng-if="($index + 1 + week - calendar.paddingDays) <= calendar.daysInMonth"
+            ng-repeat="days in calendar.weekDays">
+            {{ $index + 1 + week - calendar.paddingDays }}
+        </td>
+    </tr>
+  </tbody>
+
+</table>

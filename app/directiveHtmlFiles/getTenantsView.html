@@ -1,0 +1,18 @@
+<div class="container border border-dark"">
+
+  <button
+        ng-click="reserveRoom.getReservationDetails()"
+        class="btn btn-secondary"
+        type="button">
+        Get Tenants List
+  </button>
+  
+  <input class="form-group" ng-model="reserveRoom.filterName" type="text" placeholder="Filter by Name">
+    <ul class = "list-inline">
+      Tenant Number: {{reserveRoom.tenantList.reserved.length}}
+      <li class= "list-inline-item" ng-repeat="obj in reserveRoom.tenantList.reserved | filter: reserveRoom.filterName">
+          {{ obj.tennantName + ": " }} {{ obj.time * 1000 | date: 'MMM-dd-yyyy'  }}<b>,</b>
+      </li>
+    </ul>
+
+</div>
