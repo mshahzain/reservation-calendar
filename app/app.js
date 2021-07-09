@@ -6,6 +6,8 @@ angular.module("ReservationCalendar",[])
   var service = this;
   var dateList = [];
   var tenantList = [];
+
+  //helper functionnnnnnnnnnnnnn to check and delete if object{} in an array[]
   function containsDelObject(obj, list)
   {
       var i;
@@ -33,8 +35,6 @@ angular.module("ReservationCalendar",[])
     {
       console.log(error);
     });
-
-
   }
   service.getReservationDetails = function()
   {

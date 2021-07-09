@@ -71,12 +71,13 @@
     <div class="d-inline" ng-controller = "ReservationRoomController as reserveRoom">
 
 
+      <!-- Button /Confirm Stay/ - disabled using ng-if if a
+      reserved person is found on one of the selected dates -->
 
-      <div ng-if="reserveRoom.check===false" class= "border border-primary container text-center">
+      <div ng-if = "reserveRoom.check===false" class= "border border-primary container text-center">
         <div>
           Tenant Name:
           <input ng-model="reserveRoom.nameSelectedInput"  class="" type="text" placeholder="Enter tenant name">
-
         </div>
         <ul class="list-inline">
           Stay date :
@@ -84,9 +85,11 @@
              <b>{{date.short}}</b>,
           </li>
         </ul>
-        <button  class ="btn btn-success" type="button" name="button">Confirm Stay</button>
+        <button  ng-click= "reserveRoom.setReservationDetails()" class ="btn btn-success" ng-disabled="!reserveRoom.nameSelectedInput.trim().length || !reserveRoom.date.length" type="button" name="button">Confirm Stay</button>
       </div>
 
+      <!-- Button /Cancel Stay/ - ENABLED using ng-if if a
+      reserved person is  found on one of the selected dates -->
       <div ng-if="reserveRoom.check===true" class= "border border-primary container text-center">
         <div>
           Tenant Name:
@@ -106,11 +109,13 @@
 
     <div class="container border border-primary">
       <button ng-click="reserveRoom.getReservationDetails()" class="btn btn-secondary" type="button" name="button"> Get Tenants List </button>
+      <input ng-model="reserveRoom.filterName" type="text" placeholder="Filter by Name">
         <ul class = "list-inline">
           Tenant List: {{reserveRoom.tenantList.reserved.length}}
 
-          <li class= "list-inline-item" ng-repeat="obj in reserveRoom.tenantList.reserved">
-              {{ obj.tennantName }} <b>,</b>
+          <li class= "list-inline-item" ng-repeat="obj in reserveRoom.tenantList.reserved | filter: reserveRoom.filterName">
+              {{ obj.tennantName + ": " }} {{ obj.time * 1000 | date: 'MMM-dd-yyyy'  }}<b>,</b>
+
           </li>
 
         </ul>

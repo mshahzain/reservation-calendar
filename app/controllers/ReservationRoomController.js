@@ -11,31 +11,52 @@ function ReservationRoomController(ReserveRoomService)
   reserveRoom.nameSelectedInput = "";
   reserveRoom.nameSelectedArr=[];
   reserveRoom.date= "";
-  reserveRoom.showingList=[];
-  reserveRoom.check = false;  // true = cancel, false = conffirm date Serves as a toggle between cancel and confirm stay button.
+  reserveRoom.passingList=[];
+  reserveRoom.check = false;  // true = cancel, false = confirm date// Serves as a toggle between cancel and confirm stay button.
   ReserveRoomService.getReservationDetails();
 
   reserveRoom.setReservationDetails = function()
   {
     if(reserveRoom.check)
     {
-      console.log(reserveRoom.showingList);
-      for(let i = 0; i < reserveRoom.showingList.length; i++)
+      console.log(reserveRoom.passingList);
+      for(let i = 0; i < reserveRoom.passingList.length; i++)
       {
-        var obj = reserveRoom.showingList[i];
-        console.log(obj);
+        var obj = reserveRoom.passingList[i];
+        // console.log(obj);
         ReserveRoomService.setReservationDetails(obj, false);
+        reserveRoom.tenantList= ReserveRoomService.getReservationDetails(); //Updating tenantList
       }
     }
-    else {
+    else
+    {
+      //console.log(reserveRoom.date);
+
+      for(let i = 0; i < reserveRoom.date.length; i++) //reserveRoom.date has seleeccted dates
+      {
+
+        var myTimeStamp = Math.floor((reserveRoom.date[i].date.getTime() / 1000));
+        // console.log(reserveRoom.date[i].date);
+        // console.log(myTimeStamp);
+        var obj = {name: reserveRoom.nameSelectedInput.trim(), time: myTimeStamp};
+        ReserveRoomService.setReservationDetails(obj, true);
+        reserveRoom.tenantList = ReserveRoomService.getReservationDetails(); //Updating tenantList
+
+      }
+
+      reserveRoom.nameSelectedInput = "";
 
     }
   }
 
-
+  //Multi-function to get Tenants List as well as set the Tenant Name per Stay Date
+    //
+    //
+    //
   reserveRoom.getReservationDetails = function() //for ng-click
   {
-    reserveRoom.showingList = [];
+
+    reserveRoom.passingList = [];
     reserveRoom.check = false;
     reserveRoom.nameSelectedArr = []; //resetting
     //tenantList.reserved[i].time == our date??
@@ -50,29 +71,36 @@ function ReservationRoomController(ReserveRoomService)
       var nameSelectedInput = reserveRoom.nameSelectedInput;
       for (let j = 0; j < reserveRoom.tenantList.reserved.length; j++)
       {
+
         let selectedtenant = reserveRoom.tenantList.reserved[j];
-        //console.log(selectedtenant.time, "selectedtenanttime");
-        if(selectedtenant.time > timeStampStart && selectedtenant.time < timeStampEnd)
+        // console.log(timeStampStart, selectedtenant.time,  timeStampEnd, "selectedtenanttime");
+        // console.log(selectedtenant);
+        //had a problem where timeStamps weren't matching cus of difference in timeZones
+        //fixed.!!!
+        if(selectedtenant.time >= timeStampStart && selectedtenant.time <= timeStampEnd)
         {
           //console.log("inisde time loop");
           reserveRoom.check = true;
           if(!nameSelectedInput.trim().length) //checks if string is not only whitesapces or empty
           {
-            reserveRoom.showingList.push({name:selectedtenant.tennantName , time: selectedtenant.time})
+
+            reserveRoom.passingList.push({name:selectedtenant.tennantName , time: selectedtenant.time})
             reserveRoom.nameSelectedArr.push(selectedtenant.tennantName);
           }
-          else if (nameSelectedInput == selectedtenant.tennantName)
+          else
           {
             reserveRoom.nameSelectedArr.push(selectedtenant.tennantName);//Names from selectedDates
-            reserveRoom.showingList.push({tennantName: nameSelectedInput, time: selectedtenant.time});
+            reserveRoom.passingList.push({name: nameSelectedInput, time: selectedtenant.time});
           }
           reserveRoom.nameSelectedArr = new Set(reserveRoom.nameSelectedArr);//
           reserveRoom.nameSelectedArr = [...reserveRoom.nameSelectedArr];//removes dups //set into arr
-
         }
+        // console.log(reserveRoom.nameSelectedArr, "namesSelected");
+        // console.log(reserveRoom.date)
       }
+
     }
-    console.log(reserveRoom.showingList);
+    //console.log(reserveRoom.passingList);
   }
 
   try

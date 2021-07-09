@@ -9,7 +9,7 @@ var data = require('./init_data.json').data;
 app.use(bodyParser.json());
 
 // Stub data
-var locale = 'Asia/Dubai';
+var locale = 'Asia/Karachi';
 
 // Probably not the safest way to handle CORS
 app.use(function(req, res, next) {
