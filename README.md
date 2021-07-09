@@ -26,7 +26,7 @@
 
 * Select the dates in which a tenant will be added, by clicking on specific dates of calendar, you can also change the months and select other dates as well, Selected dates will be shown on the right of `Stay Date:` heading.
 
-* Press the `Get Tenants List` button below the dates, this button sets the `Tenant List` below, as well as checks if there is a current booking on even one of the dates selected.
+* You can try pressing the `Get Tenants List` button below the dates, this button sets the `Tenant List` below, as well as checks if there is a current booking on even one of the dates selected.
 
 * If there exists a tenant on one of the selectedDates, the `Confirm Stay` view will get hidden, and `Cancel Entry` view will appear. The `Tenant(s)` linked with one of the dates will be displayed above the dates. Clicking on Cancel Entry will cancel reservation for each of the displayed date and respective tenants. After clicking on `Cancel Entry`, wait 2-4 seconds to have run the `https` calls, Then click on `Get Tenants List` button to see the new updated tenant list.
 
@@ -40,3 +40,10 @@
 ### Limitations known to me:
 * The reserved dates are only checked from 2010 to end of 2022. It shouldn't work after or before that respectively.
 * Time zone is **hardcoded** in the `server.js` file. This application **should** produce bugs if ran from outside Pakistan. Change the timezone in server.js file. Lookup and find Moment.js Timezone locale of your own Time Zone and change the code at line 12 i.e `var locale = 'Asia/Karachi';` to one with your current Time Zone.
+
+### Learned most from:
+* Coursera - Single-page-web-apps-with-angularjs
+* A free Udemy Course on AngularJS
+* https://www.w3schools.com/angular/
+* https://angularjs.org/
+* StackOverFlow
