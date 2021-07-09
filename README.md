@@ -30,6 +30,8 @@
 
 * If there exists a tenant on one of the selectedDates, the `Confirm Stay` view will get hidden, and `Cancel Entry` view will appear. The `Tenant(s)` linked with one of the dates will be displayed above the dates. Clicking on Cancel Entry will cancel reservation for each of the displayed date and respective tenants. After clicking on `Cancel Entry`, wait 2-4 seconds to have run the `https` calls, Then click on `Get Tenants List` button to see the new updated tenant list.
 
+* Press the `Get Tenants List` button again to update to the latest state. Sometimes, the user might press this before all the `POST` calls are done, which results in unupdated state.
+
 * Now that these tenants don't exist, the selected dates should be free to reserve. `Confirm Stay` view will be shown, where the button is activated only if dates are selected and `Tenant Name Input` is not empty or only whitespaces. After clicking on `Confirm Stay` button, wait 2-4 seconds to have run the `https` calls, Then click on `Get Tenants List` button to see the new updated tenant list.
 
 #### 3) Filtering tenants:
