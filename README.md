@@ -6,6 +6,7 @@
 
 ### **To run the Application:**
 
+0) `Clone` the repository. 🧔
 1) Make sure you have npm, and are currently in the main directory in **Command line**.
 2) run `npm install` to install all the dependencies.
 3) run `npm start` to start the server, Make sure the server is running, visually it will show `API server listening at http://localhost:3000`.
