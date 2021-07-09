@@ -9,7 +9,7 @@
 1) Make sure you have npm, and are currently in the main directory in **Command line**.
 2) run `npm install` to install all the dependencies.
 3) run `npm start` to start the server, Make sure the server is running, visually it will show `API server listening at http://localhost:3000`.
-4) Open the project through a editor(I am using Atom) which has a `live-server` in a preferably newer browser(i.e not IE) (I have tested on Chrome on Windows 10).
+4) Open the project through a editor(I am using Atom) which has a `live-server`, in a preferably newer browser (i.e not IE) (I have tested on Chrome on Windows 10).
 5) Without the `live-server`, the project won't be able to load directives that are in different html files due to restriction in cross-origin requests.
 
 
