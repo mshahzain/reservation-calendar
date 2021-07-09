@@ -19,6 +19,8 @@
 
 #### 2) To add and delete a tenant:
 
+* Do not add on a date that is reserved, the server doesn't allow that, and is handled by the server.
+
 * Select the dates in which a tenant will be added, by clicking on specific dates of calendar, you can also change the months and select other dates as well, Selected dates will be shown on the right of `Stay Date:` heading.
 
 * Press the `Get Tenants List` button below the dates, this button sets the `Tenant List` below, as well as checks if there is a current booking on even one of the dates selected.
